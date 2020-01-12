@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>URL Shortner</title>
+    <title>Creative - Start Bootstrap Theme</title>
 
     <!-- Font Awesome Icons -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -40,6 +40,11 @@
         </div>
     </nav>
 
+    <script>
+    var save;
+    </script>
+ 
+ 
     <!-- Masthead -->
     <header class="masthead"
         style="background-image: url(img/bg-masthead.jpg);background-blend-mode: multiply;background-color: #847C7F;">
@@ -48,18 +53,46 @@
                 <div class="col-lg-10 align-self-end">
                     <h1 class="text-uppercase text-white font-weight-bold">Make your own URL simple.</h1>
                     <hr class="divider my-4">
-                    <form action="/" method="POST">
+                    <form>
                         <div class=row>
                             <div class=col-md-9 style="padding-right:0px; padding-left:10%">
-                                <input type="text" class="form-control" name="inputUrl" placeholder="Enter your URL"
-                                    style="margin-bottom: 20px;" type="submit">
+                                <input type="text" class="form-control" id="inputUrl" placeholder="Enter your URL"
+                                    style="margin-bottom: 20px;">
                             </div>
                             <div class=col-md-2 style="padding-left:0px; padding-right:5%;">
-                                <button id="put-button" class="btn btn-primary btn-small js-scroll-trigger">GET URL </button>
+                                <button id="put-button" class="btn btn-primary btn-small js-scroll-trigger"
+                                    onclick="loadUrl()">GET URL </button>
                             </div>
                         </div>
                         <p class="text-white-75 font-weight-light mb-5" style="margin-top:20px" id="print" value=save></p>
                     </form>
+
+                    <script>
+                        document.getElementById('print').innerHTML = request.getParameter("save");
+                    </script>
+
+                    <script> 
+                        var xhr = new XMLHttpRequest();
+                        function loadUrl() {
+                            xhr.onreadystatechange = function () {
+                                if (this.readyState == 4 && this.status == 200 ) {
+                                    document.getElementById("print").innerHTML = this.responseText;
+                                    var response = JSON.parse(this.responseText);
+                                    document.getElementById('print').innerHTML = response.url;
+                                }
+                            };
+                            const inputUrl = document.getElementById('inputUrl').value;
+                            if (inputUrl.includes('localhost:3000/')) {
+                                inputUrl = inputUrl.substr(15)
+                            }
+                            var data = { 'inputUrl': `${inputUrl}` }
+                            save =  document.getElementById('print').value;
+                            xhr.open('POST', '/', false);
+                            xhr.setRequestHeader("Content-type", "application/json");
+                            xhr.send(JSON.stringify(data));
+
+                        }
+                    </script>
 
                 </div>
                 <div class="col-lg-8 align-self-baseline">
@@ -67,6 +100,8 @@
             </div>
         </div>
     </header>
+
+
 
 
     <!-- Bootstrap core JavaScript -->

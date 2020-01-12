@@ -15,8 +15,6 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.set('view engine', 'ejs');
-app.engine('html', require('ejs').renderFile);
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -30,10 +28,9 @@ app.use('/css', express.static(path.join(__dirname, 'node_modules', 'bootstrap',
 app.use('/vendor', express.static(path.join(__dirname, 'node_modules', 'bootstrap', 'scss', 'vendor')));
 app.use('/img', express.static(path.join(__dirname, 'node_modules', 'bootstrap', 'dist', 'img')));
 
-// view 경로 설정
-app.set('views', __dirname + '/views');
-// public 경로 설정
-app.set('public', __dirname + '/public');
+app.get('/', (req,res)=>{
+  res.sendFile(__dirname + '/views/index.html');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,18 +1,15 @@
-
+/*
 var express = require('express');
 var router = express.Router();
 var urls = require("../model/url");
 var getTime = require('../module/getTime');
 var stringProcess = require('../module/stringProcess');
-var save;
-
-//router.use('/getUrl', require('./getUrl'));
 
 router.post('/', async function (req, res, next) {
 
     const inputUrl = await req.body.inputUrl;
     var encodedUrl;
-    console.log(inputUrl)
+
     //Percent Encoding
     if(inputUrl.includes('%')){
         inputUrl = decodeURI (inputUrl);
@@ -30,9 +27,8 @@ router.post('/', async function (req, res, next) {
 
     //존재하는 long url일 때
     if (db_url) {
-        save = `localhost:3000/${db_url.shortenUrl}`
         console.log("기존 url 정보조회 성공")
-        res.status(200).json({url:`localhost:3000/${db_url.shortenUrl}`})
+        res.status(200).send({url:db_url.shortenUrl})
         return;
 
     //존재하고 있는 shortUrl일때 
@@ -55,6 +51,8 @@ router.post('/', async function (req, res, next) {
 
     var encodedTime = stringProcess.getValueOfIndex(time);
     var encodedDate = stringProcess.encode(date).substr(0,3);
+    console.log(encodedTime);
+    console.log(encodedDate);
 
     var urlModel = new urls();
     urlModel.yearMonth = yearMonth;
@@ -64,9 +62,8 @@ router.post('/', async function (req, res, next) {
     urlModel.save()
         .then((newUrl) => {
             console.log("새로운 url 저장 완료")
-            save = `localhost:3000/${newUrl.shortenUrl}`;
             res.status(200).send({
-                    url: `localhost:3000/${newUrl.shortenUrl}`
+                    url: newUrl.shortenUrl
                 })
             return;
         })
@@ -79,13 +76,5 @@ router.post('/', async function (req, res, next) {
 
 });
 
-router.get('/', async function (req, res, next) {
-    res.status(200).send({
-        save: save
-    })
-});
-
 module.exports = router;
-
-
-
+*/
