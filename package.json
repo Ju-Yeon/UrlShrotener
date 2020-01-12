@@ -1,0 +1,29 @@
+{
+  "name": "urlshortner",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "^3.0.1",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "^1.11.0",
+    "model": "^6.0.1",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.27",
+    "mongodb": "^3.4.1",
+    "mongodb-server": "^1.0.0",
+    "mongoose": "^5.8.5",
+    "morgan": "~1.9.1",
+    "node-cron": "^2.0.3",
+    "nodemon": "^2.0.2"
+  },
+  "devDependencies": {
+    "boostrap": "^2.0.0"
+  }
+}
